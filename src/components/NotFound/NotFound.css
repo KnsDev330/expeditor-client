@@ -1,0 +1,12 @@
+.error404>div {
+    width: 500px;
+    max-width: 80%;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+}
+
+.error404 img {
+    border-radius: 50%;
+    max-width: 90%;
+}

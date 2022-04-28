@@ -1,0 +1,33 @@
+.logo {
+    width: 200px;
+}
+
+.navbar {
+    height: 65px;
+}
+
+.navbar .container {
+    background-color: #212529;
+}
+
+@media only screen and (max-width: 992px) {
+    .site-mw.nav-container.container {
+        max-width: 100%;
+    }
+
+    .nav-items {
+        padding: 20px 0;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .buttons a {
+        width: 60%;
+    }
+}

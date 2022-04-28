@@ -1,0 +1,58 @@
+.register {
+    width: 90%;
+    width: 600px;
+    max-width: 90%;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    background-color: white;
+    -webkit-box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+}
+
+input.form-control, .text-label {
+    max-width: 400px;
+}
+
+.text-label {
+    text-align: start;
+    display: block;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+hr.login-hr {
+    height: 1px;
+    display: inline-block;
+    width: 100px;
+    margin: 5px;
+}
+
+.continue-with-button {
+    border: 1px solid var(--btn-border-gray);
+    background-color: white;
+    padding: 10px 20px;
+    margin: 2px 0;
+    border-radius: 7px;
+    transition: 0.1s ease-in-out;
+}
+
+.continue-with-button:hover {
+    background-color: var(--btn-hover-background);
+}
+
+.continue-with-button p {
+    margin: 0 0 0 10px;
+}
+
+.continue-with-button img {
+    height: 25px;
+}
+
+
+@media only screen and (max-width: 500px) {
+    .register {
+        padding: 0 10px;
+    }
+}
