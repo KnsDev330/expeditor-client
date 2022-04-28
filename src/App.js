@@ -5,9 +5,6 @@ import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Blogs from './components/Blogs/Blogs';
-
-// Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import ManageItems from './components/ManageInventories/ManageInventories';
 import MyItems from './components/MyItems/MyItems';
@@ -16,10 +13,18 @@ import Inventory from './components/Inventory/Inventory';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import NotFound from './components/NotFound/NotFound';
 import Home from './components/Home/Home';
+import { ToastContainer } from 'react-toastify';
+
+// Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+// React Toastify CSS
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
     return (
         <div className="App">
+            <ToastContainer></ToastContainer>
             <Header></Header>
             <Routes>
                 <Route path='/' element={<Home></Home>} ></Route>

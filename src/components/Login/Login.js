@@ -2,8 +2,9 @@ import { Button } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import './Login.css';
 import googleSvg from '../../images/google.svg';
+import twitterSvg from '../../images/twitter.svg';
 import { toast } from 'react-toastify';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle, useSignInWithTwitter } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase.init';
 const toastConfig = { position: "top-right", autoClose: 2000 };
@@ -24,21 +25,28 @@ const Login = () => {
         SignIn(email, password);
     }
 
-    // handle google registration
+    // handle signinwith xxx
     const [signInWithGoogle, user2, , error2] = useSignInWithGoogle(auth);
-    const HandleGoogleSignIn = () => {
-        signInWithGoogle();
-    }
+    const [signInWithTwitter, user3, , error3] = useSignInWithTwitter(auth);
 
     useEffect(() => {
-        if (user || user2) {
+        console.log(`ERROR: ${error?.message}`);
+        console.log(`ERROR2: ${error2?.message}`);
+        console.log(`ERROR3: ${error3?.message}`);
+    }, [error, error2, error3]);
+
+    // Navigating user on successful login
+    useEffect(() => {
+        if (user || user2 || user3) {
             navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
             localStorage.removeItem("toLocation");
         }
-    }, [user, user2, navigate]);
+    }, [user, user2, user3, navigate]);
 
+    // Showing Errors to the User
     useEffect(() => { error && toast.error(`${error.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error]);
     useEffect(() => { error2 && toast.error(`${error2.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error2]);
+    useEffect(() => { error3 && toast.error(`${error3.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error3]);
 
     return (
         <div className='site-mw mx-auto my-5'>
@@ -61,9 +69,13 @@ const Login = () => {
                     <hr className='login-hr' /> OR <hr className='login-hr' />
                 </div>
 
-                <button className='continue-with-button d-flex align-items-center' onClick={HandleGoogleSignIn}>
+                <button className='continue-with-button d-flex align-items-center' onClick={() => signInWithGoogle()}>
                     <img src={googleSvg} alt="Google" />
                     <p>Continue with Google</p>
+                </button>
+                <button className='continue-with-button d-flex align-items-center' onClick={() => signInWithTwitter()}>
+                    <img src={twitterSvg} alt="Twitter" />
+                    <p>Continue with Twitter</p>
                 </button>
 
             </div>
