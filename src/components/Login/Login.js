@@ -8,6 +8,8 @@ import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle, useSi
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase.init';
 import Loading from '../Loading/Loading';
+import { URLS } from '../../Constants/CONSTS';
+import axios from 'axios';
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const Login = () => {
@@ -33,14 +35,30 @@ const Login = () => {
     const [signInWithTwitter, , loading3, error3] = useSignInWithTwitter(auth);
 
     // set JWT and navigate user on successfull registration
-    const [userx] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     useEffect(() => {
-        if (userx) {
-            console.log(userx);
-            navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
-            localStorage.removeItem("toLocation");
+        if (user) {
+            async function myFunc() {
+                // console.log(user)
+                const res = await axios({
+                    url: `${URLS.serverRoot}${URLS.getJwt}`,
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    data: { accessToken: user.accessToken }
+                });
+
+                // show error and return if JWT token not found on response
+                const jwtToken = res?.data?.data?.token;
+                if (!jwtToken) return toast.error(`${res?.statusText}`, toastConfig);
+
+                // set JWT to localstorage and navigate user
+                localStorage.setItem('jwt', jwtToken);
+                navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
+                localStorage.removeItem("toLocation");
+            }
+            myFunc();
         }
-    }, [userx]);
+    }, [user]);
 
     // showing error if any
     useEffect(() => { error && toast.error(`${error.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error]);
