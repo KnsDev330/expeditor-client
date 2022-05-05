@@ -1,5 +1,4 @@
 .register {
-    width: 90%;
     width: 600px;
     max-width: 90%;
     padding: 0 20px;
@@ -11,7 +10,8 @@
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
 }
 
-input.form-control, .text-label {
+input.form-control,
+.text-label {
     max-width: 400px;
 }
 

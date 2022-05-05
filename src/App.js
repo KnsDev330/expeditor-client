@@ -9,7 +9,6 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import ManageItems from './components/ManageInventories/ManageInventories';
 import MyItems from './components/MyItems/MyItems';
 import AddItem from './components/AddItem/AddItem';
-import Inventory from './components/Inventory/Inventory';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import NotFound from './components/NotFound/NotFound';
 import Home from './components/Home/Home';
@@ -19,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // React Toastify CSS
 import 'react-toastify/dist/ReactToastify.css';
+import Item from './components/Item/Item';
 
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
                 <Route path='/manage-items' element={<RequireAuth><ManageItems></ManageItems></RequireAuth>} ></Route>
                 <Route path='/my-items' element={<RequireAuth><MyItems></MyItems></RequireAuth>} ></Route>
                 <Route path='/add-item' element={<RequireAuth><AddItem></AddItem></RequireAuth>} ></Route>
-                <Route path='/inventory/:id' element={<RequireAuth><Inventory></Inventory></RequireAuth>} ></Route>
+                <Route path='/item/:id' element={<RequireAuth><Item></Item></RequireAuth>} ></Route>
                 <Route path='*' element={<NotFound></NotFound>} ></Route>
             </Routes>
             <Footer></Footer>

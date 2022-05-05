@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaHome, FaTwitter, FaBlogger, FaList, FaPlus } from 'react-icons/fa';
 
 import './Header.css';
 

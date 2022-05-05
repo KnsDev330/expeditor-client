@@ -19,7 +19,7 @@ const Register = () => {
 
     // handle email registration
     const [updateProfile, updatingProfile, updateProfileError] = useUpdateProfile(auth);
-    const [createUser, , loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [createUser, , emailLoading, emailError] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const HandleRegister = async e => {
         e.preventDefault();
         const [nameBox, emailBox, passwordBox] = [e.target.name, e.target.email, e.target.password];
@@ -42,8 +42,8 @@ const Register = () => {
     }
 
     // handle social registration
-    const [signInWithGoogle, , loading2, error2] = useSignInWithGoogle(auth);
-    const [signInWithTwitter, , loading3, error3] = useSignInWithTwitter(auth);
+    const [signInWithGoogle, , googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [signInWithTwitter, , twitterLoading, twitterError] = useSignInWithTwitter(auth);
 
     // set JWT and navigate user on successfull registration
     const [user] = useAuthState(auth);
@@ -69,19 +69,19 @@ const Register = () => {
             }
             myFunc();
         }
-    }, [user]);
+    }, [user, navigate]);
 
     // showing error if any
-    useEffect(() => { error && toast.error(`${error.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error]);
-    useEffect(() => { error2 && toast.error(`${error2.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error2]);
-    useEffect(() => { error3 && toast.error(`${error3.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [error3]);
+    useEffect(() => { emailError && toast.error(`${emailError.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [emailError]);
+    useEffect(() => { googleError && toast.error(`${googleError.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [googleError]);
+    useEffect(() => { twitterError && toast.error(`${twitterError.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [twitterError]);
     useEffect(() => { updateProfileError && toast.error(`${updateProfileError.code.slice(5).replace(/-/g, ' ')}`, toastConfig) }, [updateProfileError]);
 
     // showing loading screen if registering
     const [showLoading, setShowLoading] = useState(false);
-    useEffect(() => { setShowLoading(!!loading) }, [loading]);
-    useEffect(() => { setShowLoading(!!loading2) }, [loading2]);
-    useEffect(() => { setShowLoading(!!loading3) }, [loading3]);
+    useEffect(() => { setShowLoading(!!emailLoading) }, [emailLoading]);
+    useEffect(() => { setShowLoading(!!googleLoading) }, [googleLoading]);
+    useEffect(() => { setShowLoading(!!twitterLoading) }, [twitterLoading]);
     useEffect(() => { setShowLoading(!!updatingProfile) }, [updatingProfile]);
 
     return (

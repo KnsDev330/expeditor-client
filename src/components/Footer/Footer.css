@@ -1,0 +1,49 @@
+footer {
+    background-color: var(--footer-bg) !important;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.socials .social {
+    display: inline-block;
+
+}
+
+.socials .social img {
+    width: 50px;
+    border: 3px solid white;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.socials .social img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 4px 2px rgb(60 255 255 / 48%), 0 1px 3px 1px rgb(255 255 255 / 15%);
+}
+
+.followmeon {
+    order: 1;
+}
+
+.gettheapp {
+    order: 3;
+}
+
+.copyright {
+    order: 2;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .followmeon {
+        order: 1;
+    }
+
+    .gettheapp {
+        order: 2;
+    }
+
+    .copyright {
+        order: 3;
+    }
+}
