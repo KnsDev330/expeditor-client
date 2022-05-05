@@ -1,0 +1,73 @@
+.w-70px {
+    width: 70px;
+    display: inline-block;
+    color: gray;
+}
+
+.description {
+    color: #505050;
+}
+
+.fromLeft {
+    animation: fromLeft 0.7s ease-out;
+}
+
+.fromRight {
+    animation: fromRight 0.7s ease-out;
+}
+
+.fromTop {
+    animation: fromTop 0.7s ease-out;
+}
+
+.fromBottom {
+    animation: fromBottom 0.7s ease-out;
+}
+
+@keyframes fromLeft {
+    from {
+        left: 500px;
+        opacity: 0;
+    }
+
+    to {
+        left: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes fromRight {
+    from {
+        right: 500px;
+        opacity: 0;
+    }
+
+    to {
+        right: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes fromTop {
+    from {
+        top: 500px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes fromBottom {
+    from {
+        bottom: 500px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1;
+    }
+}

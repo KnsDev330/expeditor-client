@@ -19,6 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // React Toastify CSS
 import 'react-toastify/dist/ReactToastify.css';
 import Item from './components/Item/Item';
+import ManageInventories from './components/ManageInventories/ManageInventories';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
                 <Route path='/login' element={<Login></Login>} ></Route>
                 <Route path='/register' element={<Register></Register>} ></Route>
                 <Route path='/reset-password' element={<ResetPassword></ResetPassword>} ></Route>
-                <Route path='/manage-items' element={<RequireAuth><ManageItems></ManageItems></RequireAuth>} ></Route>
+                <Route path='/manage-inventories' element={<ManageInventories></ManageInventories>} ></Route>
                 <Route path='/my-items' element={<RequireAuth><MyItems></MyItems></RequireAuth>} ></Route>
                 <Route path='/add-item' element={<RequireAuth><AddItem></AddItem></RequireAuth>} ></Route>
                 <Route path='/item/:id' element={<RequireAuth><Item></Item></RequireAuth>} ></Route>
