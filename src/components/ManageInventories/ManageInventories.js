@@ -6,7 +6,7 @@ import './ManageInventories.css';
 const ManageInventories = () => {
     return (
         <div>
-            <Items></Items>
+            <Items from='inventories'></Items>
         </div>
     );
 };

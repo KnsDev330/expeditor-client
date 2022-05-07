@@ -9,11 +9,13 @@ import './Items.css';
 import { Link } from 'react-router-dom';
 import ReadMore from '../ReadMore/ReadMore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDeleteLeft, faTrash, faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
-const Items = ({ home }) => {
+const Items = ({ from }) => {
+    const home = from === 'home';
+
     // page counts
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
@@ -25,15 +27,16 @@ const Items = ({ home }) => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         if (loading) return;
-        let data = { page, limit: home ? 6 : limit };
+        let data = { page, limit: (home ? 6 : limit) };
         if (localStorage.getItem('jwt') && user) {
             data.jwt = localStorage.getItem('jwt');
             data.uid = user.uid;
+            data.myItems = from === 'myitems';
         }
         axios.post(`${URLS.serverRoot}${URLS.getItems}`, data, { headers: { 'content-type': 'application/json' } })
             .then(r => setItems(r.data))
             .catch(err => toast.error(`Error: ${err.message}`, toastConfig));
-    }, [user, page, limit, home, loading]);
+    }, [user, page, limit, home, loading, from]);
 
     // page count
     const [pageCount, setPageCount] = useState(0);
@@ -80,7 +83,7 @@ const Items = ({ home }) => {
 
             {!home && <Button as={Link} to={`/add-item`} className='mt-5 mb-3'> Add New Item </Button>}
 
-            <h2 className='text-center my-4'>Items we manage</h2>
+            <p className='text-center my-4'>{from === 'myitems' ? 'Your items' : 'Items we manage'}</p>
             <div className='items d-flex gap-3 mb-3 flex-wrap justify-content-center'>
                 {
                     items.map(({ _id, name, image, description, quantity, price, supplier, sold }, index) => <Card style={{ width: '20rem' }} className={`item ` + animations[index % 4]} key={_id}>
@@ -93,11 +96,11 @@ const Items = ({ home }) => {
                             <Card.Text className='my-2 description'>
                                 <ReadMore>{description}</ReadMore>
                             </Card.Text>
-                            <div className="mt-auto d-flex justify-content-between">
-                                <Button variant="outline-danger" className='mt-auto w-25 mx-auto' onClick={() => { setShowModal(true); setDeleteId(_id); }}>
+                            <div className="mt-auto d-flex justify-content-center gap-2">
+                                <Button variant="outline-danger" className='mt-auto w-25' onClick={() => { setShowModal(true); setDeleteId(_id); }}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </Button>
-                                <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50 mx-auto'>Manage</Button>
+                                <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50'>Manage</Button>
                             </div>
                         </Card.Body>
                     </Card>)
@@ -124,7 +127,7 @@ const Items = ({ home }) => {
             {home && <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> Manage Inventories </Button>}
 
             {
-                !home && <>
+                (!home && from === 'inventories') && <>
                     <div className='d-lg-flex justify-content-around w-100 mt-3 mb-5'>
                         <div className='col-lg-6 col-12 justify-content-center my-3 d-flex gap-2 flex-wrap'>
                             {

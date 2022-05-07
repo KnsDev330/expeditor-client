@@ -64,7 +64,7 @@ const AddItem = () => {
     return (
         <div className='d-flex flex-column align-items-center my-5'>
             <p>Add New Item</p>
-            <div className='add-new-item-form p-5'>
+            <div className='add-new-item-form p-5 fromBottom position-relative'>
                 <form action="#" onSubmit={AddNewItem} className='d-flex flex-column'>
                     <div>
                         <label htmlFor="name" className='text-label'>Name:</label>

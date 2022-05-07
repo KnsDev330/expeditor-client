@@ -39,6 +39,7 @@ const Inventory = () => {
     const HandleDelivery = async e => {
         // prevent page reload
         e.preventDefault();
+
         setDelivering(true);
         let data = e.target?.count?.value ?
             { id, uid: user.uid, jwt: localStorage.getItem("jwt"), restock: e.target.count.value } : { id, uid: user.uid, jwt: localStorage.getItem("jwt") };

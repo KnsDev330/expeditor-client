@@ -6,9 +6,7 @@ import './Home.css';
 const Home = () => {
     return (
         <div>
-
-            <Items home={true} ></Items>
-
+            <Items from='home' ></Items>
         </div>
     );
 };

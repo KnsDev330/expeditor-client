@@ -32,7 +32,7 @@ function App() {
                 <Route path='/login' element={<Login></Login>} ></Route>
                 <Route path='/register' element={<Register></Register>} ></Route>
                 <Route path='/reset-password' element={<ResetPassword></ResetPassword>} ></Route>
-                <Route path='/manage-inventories' element={<ManageInventories></ManageInventories>} ></Route>
+                <Route path='/manage-inventories' element={<RequireAuth><ManageInventories></ManageInventories></RequireAuth>} ></Route>
                 <Route path='/my-items' element={<RequireAuth><MyItems></MyItems></RequireAuth>} ></Route>
                 <Route path='/add-item' element={<RequireAuth><AddItem></AddItem></RequireAuth>} ></Route>
                 <Route path='/inventory/:id' element={<RequireAuth><Inventory></Inventory></RequireAuth>} ></Route>
