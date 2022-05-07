@@ -6,7 +6,7 @@ const ReadMore = ({ children }) => {
     const [isReadMore, setIsReadMore] = useState(true);
     return (<>
         {isReadMore ? text?.slice(0, 120) : text}
-        <span onClick={() => setIsReadMore(!isReadMore)} className='readmore'>{isReadMore ? "...  read more" : " show less"}</span>
+        <span onClick={() => setIsReadMore(!isReadMore)} className='readmore'>{isReadMore ? (text?.length > 120 && "...  read more") : " show less"}</span>
     </>);
 };
 

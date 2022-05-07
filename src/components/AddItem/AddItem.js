@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import './AddItem.css';
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const AddItem = () => {
+    const [user] = useAuthState(auth);
 
     /************* LOAD DUMMY FORM DATA *************/
     const [dummy, setDummy] = useState({});
@@ -20,10 +21,6 @@ const AddItem = () => {
             .then(r => setDummy(r.data[Math.floor(Math.random() * 12)]))
             .catch(err => toast.error(`Error: ${err.message}`, toastConfig))
     }
-    /************* LOAD DUMMY FORM DATA *************/
-
-    // current firebase user
-    const [user, loading] = useAuthState(auth);
 
     // handle add new item
     const [adding, setAdding] = useState(false);
@@ -36,9 +33,9 @@ const AddItem = () => {
         // construct item object
         const item = {
             name: e.target.name.value,
-            price: e.target.price.value,
-            quantity: e.target.quantity.value,
-            sold: e.target.sold.value,
+            price: Number(e.target.price.value),
+            quantity: Number(e.target.quantity.value),
+            sold: Number(e.target.sold.value),
             supplier: e.target.supplier.value,
             image: e.target.image.value,
             description: e.target.description.value

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Modal, Spinner } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import { URLS } from '../../Constants/CONSTS';
@@ -8,6 +8,8 @@ import { auth } from '../../firebase.init';
 import './Items.css';
 import { Link } from 'react-router-dom';
 import ReadMore from '../ReadMore/ReadMore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDeleteLeft, faTrash, faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
@@ -50,6 +52,29 @@ const Items = ({ home }) => {
     // fade in animation
     const animations = ['fromLeft', 'fromTop', 'fromRight', 'fromBottom'];
 
+    // delete item confirmation
+    const [showModal, setShowModal] = useState(false);
+    const [deleteId, setDeleteId] = useState('');
+    const [deleting, setDeleting] = useState(false);
+    const DeleteItem = () => {
+        setDeleting(true);
+        let data = { id: deleteId };
+        if (localStorage.getItem('jwt') && user) {
+            data.jwt = localStorage.getItem('jwt');
+            data.uid = user.uid;
+        }
+        axios.post(`${URLS.serverRoot}${URLS.deleteItem}`, data, { headers: { 'content-type': 'application/json' } })
+            .then(r => {
+                console.log(r.data)
+                if (!r.data?.ok) return toast.error(`Error: ${r.data?.text}`, toastConfig);
+                setItems(items.filter(item => item._id !== deleteId));
+                setDeleteId('');
+                toast.success(`Success: ${r.data?.text}`, toastConfig);
+            })
+            .catch(err => toast.error(`Error: ${err.message}`, toastConfig))
+            .finally(() => { setShowModal(false); setDeleting(false); });
+    }
+
     return (
         <div className='site-mw mx-auto d-flex flex-column align-items-center'>
 
@@ -68,11 +93,33 @@ const Items = ({ home }) => {
                             <Card.Text className='my-2 description'>
                                 <ReadMore>{description}</ReadMore>
                             </Card.Text>
-                            <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50 mx-auto'>Manage</Button>
+                            <div className="mt-auto d-flex justify-content-between">
+                                <Button variant="outline-danger" className='mt-auto w-25 mx-auto' onClick={() => { setShowModal(true); setDeleteId(_id); }}>
+                                    <FontAwesomeIcon icon={faTrashCan} />
+                                </Button>
+                                <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50 mx-auto'>Manage</Button>
+                            </div>
                         </Card.Body>
                     </Card>)
                 }
             </div>
+
+            {/* Confirm Delete */}
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showModal}>
+                <Modal.Body className='d-flex flex-column align-items-center'>
+                    <FontAwesomeIcon icon={faTriangleExclamation} style={{ color: '#ff6a6a', fontSize: '100px' }} />
+                    <h4>Confirm Delete</h4>
+                    <p>
+                        Please confirm if you really want to delete the item with id: <strong>{deleteId}</strong>
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={DeleteItem} variant='danger' disabled={deleting}>
+                        {deleting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Delete'}
+                    </Button>
+                    <Button onClick={() => setShowModal(false)} variant='success'>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
 
             {home && <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> Manage Inventories </Button>}
 

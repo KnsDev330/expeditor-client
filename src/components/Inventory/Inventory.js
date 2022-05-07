@@ -16,10 +16,7 @@ const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const Inventory = () => {
 
-    // get item id from url parameter
     const { id } = useParams();
-
-    // current firebase user
     const [user, loading] = useAuthState(auth);
 
     // item details
