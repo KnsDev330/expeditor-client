@@ -8,6 +8,18 @@
     color: #505050;
 }
 
+.item-size {
+    width: 50px;
+    cursor: pointer;
+    outline: none;
+    height: 30px;
+}
+
+.readmore {
+    color: rgb(192, 192, 192);
+    cursor: pointer;
+}
+
 .fromLeft {
     animation: fromLeft 0.7s ease-out;
 }
