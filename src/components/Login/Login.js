@@ -44,19 +44,20 @@ const Login = () => {
                     url: `${URLS.serverRoot}${URLS.getJwt}`,
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
-                    data: { accessToken: user.accessToken }
+                    data: { uid: user.uid }
                 });
 
                 // show error and return if JWT token not found on response
-                const jwtToken = res?.data?.data?.token;
-                if (!jwtToken) return toast.error(`${res?.statusText}`, toastConfig);
+                console.log(res);
+                const jwtToken = res.data?.data?.token;
+                if (res.status !== 200) return toast.error(`${res?.statusText}`, toastConfig);
 
                 // set JWT to localstorage and navigate user
                 localStorage.setItem('jwt', jwtToken);
                 navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
                 localStorage.removeItem("toLocation");
             }
-            myFunc();
+            myFunc(); // call above function
         }
     }, [user, navigate]);
 

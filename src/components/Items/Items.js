@@ -7,6 +7,7 @@ import { URLS } from '../../Constants/CONSTS';
 import { auth } from '../../firebase.init';
 import './Items.css';
 import { Link } from 'react-router-dom';
+import ReadMore from '../ReadMore/ReadMore';
 
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
@@ -46,20 +47,14 @@ const Items = ({ home }) => {
             .catch(err => toast.error(`Error: ${err.message}`, toastConfig));
     }, [home, limit, loading, page, user]);
 
-    // readmore functionality
-    const ReadMore = ({ children }) => {
-        const text = children;
-        const [isReadMore, setIsReadMore] = useState(true);
-        return (<>
-            {isReadMore ? text.slice(0, 120) : text}<span onClick={() => setIsReadMore(!isReadMore)} className='readmore'>{isReadMore ? "...  read more" : " show less"}</span>
-        </>);
-    };
-
     // fade in animation
     const animations = ['fromLeft', 'fromTop', 'fromRight', 'fromBottom'];
 
     return (
         <div className='site-mw mx-auto d-flex flex-column align-items-center'>
+
+            {!home && <Button as={Link} to={`/add-item`} className='mt-5 mb-3'> Add New Item </Button>}
+
             <h2 className='text-center my-4'>Items we manage</h2>
             <div className='items d-flex gap-3 mb-3 flex-wrap justify-content-center'>
                 {
@@ -80,6 +75,7 @@ const Items = ({ home }) => {
             </div>
 
             {home && <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> Manage Inventories </Button>}
+
             {
                 !home && <>
                     <div className='d-lg-flex justify-content-around w-100 mt-3 mb-5'>

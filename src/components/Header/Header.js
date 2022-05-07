@@ -24,7 +24,7 @@ const Header = () => {
                                 <Nav.Link as={Link} to='/manage-inventories'> Manage Items </Nav.Link>
                                 <Nav.Link as={Link} to='/add-item'> Add Item </Nav.Link>
                                 <Nav.Link as={Link} to='/my-items'> My Items </Nav.Link>
-                                <Button variant='outline-danger' className='mx-1' onClick={() => signOut(auth)}> Logout </Button>
+                                <Button variant='outline-danger' className='mx-1' onClick={() => { signOut(auth); localStorage.removeItem("jwt"); }}> Logout </Button>
                             </> : <>
                                 <Button variant='outline-primary' className='mx-1' as={Link} to='/login'> Login </Button>
                                 <Button variant='primary' className='mx-1' as={Link} to='/register'> Register </Button>

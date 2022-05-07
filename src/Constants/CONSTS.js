@@ -3,6 +3,7 @@ const URLS = {
     getJwt: '/get-token',
     getItems: '/get-items',
     getItem: '/get-item',
+    updateItem: '/update-item',
     getItemsCount: '/get-items-count'
 }
 
