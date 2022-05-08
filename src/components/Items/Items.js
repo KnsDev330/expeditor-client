@@ -9,7 +9,8 @@ import './Items.css';
 import { Link } from 'react-router-dom';
 import ReadMore from '../ReadMore/ReadMore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCubesStacked, faPenToSquare, faPlus, faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+
 
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
@@ -85,7 +86,7 @@ const Items = ({ from }) => {
     return (
         <div className='site-mw mx-auto d-flex flex-column align-items-center my-5'>
 
-            {!home && <Button as={Link} to={`/add-item`} className='mt-5 mb-3'> Add New Item </Button>}
+            {!home && <Button as={Link} to={`/add-item`} className='mt-5 mb-3'> <FontAwesomeIcon icon={faPlus} /> &nbsp; Add New Item </Button>}
 
             <p className='text-center my-4'>{from === 'myitems' ? 'Your items' : 'Items we manage'}</p>
             <div className='items d-flex gap-3 mb-3 flex-wrap justify-content-center'>
@@ -106,7 +107,9 @@ const Items = ({ from }) => {
                                         <FontAwesomeIcon icon={faTrashCan} />
                                     </Button>
                                 }
-                                <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50'>Manage</Button>
+                                <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50'>
+                                    <FontAwesomeIcon icon={faPenToSquare} /> &nbsp; Manage
+                                </Button>
                             </div>
                         </Card.Body>
                     </Card>)
@@ -130,7 +133,7 @@ const Items = ({ from }) => {
                 </Modal.Footer>
             </Modal>
 
-            {home && <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> Manage Inventories </Button>}
+            {home && <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> <FontAwesomeIcon icon={faCubesStacked} /> &nbsp; Manage Inventories </Button>}
 
             {
                 (!home && from === 'inventories') && <>

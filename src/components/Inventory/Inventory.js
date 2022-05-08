@@ -9,7 +9,10 @@ import { URLS } from '../../Constants/CONSTS';
 import { auth } from '../../firebase.init';
 import ReadMore from '../ReadMore/ReadMore';
 
+
 import './Inventory.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartArrowDown, faCubesStacked, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 // toast config
 const toastConfig = { position: "top-right", autoClose: 2000 };
@@ -22,7 +25,7 @@ const Inventory = () => {
     // item details
     const [reload, setReload] = useState(0); // for updating UI
     const [item, setItem] = useState({});
-    console.log(user)
+
     useEffect(() => {
         if (loading) return;
         let data = { id };
@@ -80,6 +83,7 @@ const Inventory = () => {
                             <Card.Text className='mb-1'><span className='w-70px'>Supplier:</span> <span style={{ fontWeight: '500' }}>{item.supplier}</span></Card.Text>
                             <Card.Text className='my-2 description'><ReadMore>{item.description}</ReadMore></Card.Text>
                             <Button variant="success" className='mt-auto w-50 mx-auto' onClick={HandleDelivery} disabled={delivering}>
+                                <FontAwesomeIcon icon={faCartArrowDown} /> &nbsp;
                                 {delivering ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Delivered'}
                             </Button>
                         </Card.Body>
@@ -92,7 +96,8 @@ const Inventory = () => {
                             <form action='#' className='d-flex flex-column justify-content-center' onSubmit={HandleDelivery}>
                                 <label htmlFor="count" className='text-label mt-3'>Item Count:</label>
                                 <input type="number" className='form-control mx-auto' id='count' name='count' placeholder='Item Quantity to add' pattern="[0-9]*" required />
-                                <Button variant="success" className='mt-3 w-50 mx-auto' type='submit'>
+                                <Button variant="success" className='mt-3 w-50 mx-auto' type='submit' disabled={delivering}>
+                                    <FontAwesomeIcon icon={faPenToSquare} /> &nbsp;
                                     {delivering ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Update'}
                                 </Button>
                             </form>
@@ -100,7 +105,10 @@ const Inventory = () => {
                     </Card>
                 </div>
             }
-            <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'> Manage Inventories </Button>
+            <Button as={Link} to={`/manage-inventories`} className='mb-5 mt-3'>
+                <FontAwesomeIcon icon={faCubesStacked} /> &nbsp;
+                Manage Inventories
+            </Button>
         </div>
     );
 };

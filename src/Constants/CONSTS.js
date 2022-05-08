@@ -1,5 +1,5 @@
 const URLS = {
-    serverRoot: 'http://localhost:5000',
+    serverRoot: 'https://knsdev330-expeditor.herokuapp.com',
     getBlogs: '/get-blogs',
     getJwt: '/get-token',
     getItems: '/get-items',

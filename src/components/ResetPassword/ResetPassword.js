@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../firebase.init';
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import Loading from '../Loading/Loading';
+
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const ResetPassword = () => {

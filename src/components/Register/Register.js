@@ -11,6 +11,7 @@ import Loading from '../Loading/Loading';
 import axios from 'axios';
 import { URLS } from '../../Constants/CONSTS';
 import { signOut } from 'firebase/auth';
+
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const Register = () => {

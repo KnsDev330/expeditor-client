@@ -1,3 +1,5 @@
+import { faFolderOpen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
@@ -5,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import { URLS } from '../../Constants/CONSTS';
 import { auth } from '../../firebase.init';
+
 
 import './AddItem.css';
 
@@ -88,9 +91,11 @@ const AddItem = () => {
                         <textarea type="text" className='form-control' id='description' name='description' required defaultValue={dummy.description || ''} />
                     </div>
                     <Button variant="success" className='mt-3 w-50 mx-auto' type='submit' disabled={adding || ''}>
+                        <FontAwesomeIcon icon={faPlus} /> &nbsp;
                         {adding ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Add'}
                     </Button>
                     <Button variant="secondary" className='mt-3 w-50 mx-auto' onClick={LoadDummyData}>
+                        <FontAwesomeIcon icon={faFolderOpen} /> &nbsp;
                         Load Dummy Data
                     </Button>
                 </form>
