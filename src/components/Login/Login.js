@@ -10,6 +10,7 @@ import { auth } from '../../firebase.init';
 import Loading from '../Loading/Loading';
 import { URLS } from '../../Constants/CONSTS';
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const Login = () => {
@@ -37,28 +38,22 @@ const Login = () => {
     // set JWT and navigate user on successfull registration
     const [user] = useAuthState(auth);
     useEffect(() => {
-        if (user) {
-            async function myFunc() {
-                // console.log(user)
-                const res = await axios({
-                    url: `${URLS.serverRoot}${URLS.getJwt}`,
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    data: { uid: user.uid }
-                });
+        if (!user) return; // abort if user is not signed in
+        axios.post(`${URLS.serverRoot}${URLS.getJwt}`, { uid: user.uid }, { headers: { 'content-type': 'application/json' } })
+            .then(res => {
 
-                // show error and return if JWT token not found on response
-                console.log(res);
-                const jwtToken = res.data?.data?.token;
-                if (res.status !== 200) return toast.error(`${res?.statusText}`, toastConfig);
+                // show error and sign out on no token
+                const jwtToken = res.data?.token;
+                if (!jwtToken) { toast.error(`Error: ${res?.data?.text}`, toastConfig); signOut(auth); return; }
 
                 // set JWT to localstorage and navigate user
                 localStorage.setItem('jwt', jwtToken);
                 navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
                 localStorage.removeItem("toLocation");
-            }
-            myFunc(); // call above function
-        }
+                toast.success(`Success`, toastConfig);
+
+            })
+            .catch(err => toast.error(`Error: ${err?.response?.data?.data}`, toastConfig))
     }, [user, navigate]);
 
     // showing error if any
@@ -81,7 +76,7 @@ const Login = () => {
                 {
                     showLoading ?
                         <>
-                            <p className='mt-5'><Loading></Loading></p>
+                            <div className='mt-5'><Loading></Loading></div>
                         </>
                         :
                         <>

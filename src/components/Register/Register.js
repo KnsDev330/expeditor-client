@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import axios from 'axios';
 import { URLS } from '../../Constants/CONSTS';
+import { signOut } from 'firebase/auth';
 const toastConfig = { position: "top-right", autoClose: 2000 };
 
 const Register = () => {
@@ -32,11 +33,9 @@ const Register = () => {
         } else {
             updateName = true;
         }
-        if (password.length < 6) {
-            toast.error(`Password must be at least 6 characters long`, toastConfig);
-            passwordBox.focus();
-            return;
-        }
+        // end request if password requirement is not met 
+        if (password.length < 6) return toast.error(`Password must be at least 6 characters long`, toastConfig);
+
         await createUser(email, password);
         if (updateName) await updateProfile({ displayName: name });
     }
@@ -48,27 +47,22 @@ const Register = () => {
     // set JWT and navigate user on successfull registration
     const [user] = useAuthState(auth);
     useEffect(() => {
-        if (user) {
-            async function myFunc() {
-                // console.log(user)
-                const res = await axios({
-                    url: `${URLS.serverRoot}${URLS.getJwt}`,
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    data: { accessToken: user.accessToken }
-                });
+        if (!user) return; // abort if user is not signed in
+        axios.post(`${URLS.serverRoot}${URLS.getJwt}`, { uid: user.uid }, { headers: { 'content-type': 'application/json' } })
+            .then(res => {
 
-                // show error and return if JWT token not found on response
-                const jwtToken = res?.data?.data?.token;
-                if (!jwtToken) return toast.error(`${res?.statusText}`, toastConfig);
+                // show error and sign out on no token
+                const jwtToken = res.data?.token;
+                if (!jwtToken) { toast.error(`Error: ${res?.data?.text}`, toastConfig); signOut(auth); return; }
 
                 // set JWT to localstorage and navigate user
                 localStorage.setItem('jwt', jwtToken);
                 navigate(JSON.parse(localStorage.getItem("toLocation"))?.pathname || '/');
                 localStorage.removeItem("toLocation");
-            }
-            myFunc();
-        }
+                toast.success(`Success`, toastConfig);
+
+            })
+            .catch(err => toast.error(`Error: ${err?.response?.data?.data}`, toastConfig))
     }, [user, navigate]);
 
     // showing error if any
@@ -93,7 +87,7 @@ const Register = () => {
                 {
                     showLoading ?
                         <>
-                            <p className='mt-5'><Loading></Loading></p>
+                            <div className='mt-5'><Loading></Loading></div>
                         </>
                         :
                         <>

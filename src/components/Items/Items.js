@@ -34,8 +34,13 @@ const Items = ({ from }) => {
             data.myItems = from === 'myitems';
         }
         axios.post(`${URLS.serverRoot}${URLS.getItems}`, data, { headers: { 'content-type': 'application/json' } })
-            .then(r => setItems(r.data))
-            .catch(err => toast.error(`Error: ${err.message}`, toastConfig));
+            .then(res => {
+                // show error if any
+                const ok = res.data?.ok;
+                if (!ok) return toast.error(`Error: ${res?.data?.text}`, toastConfig)
+                setItems(res.data?.items)
+            })
+            .catch(err => toast.error(`Error: ${err?.response?.data?.text}`, toastConfig));
     }, [user, page, limit, home, loading, from]);
 
     // page count
@@ -68,7 +73,6 @@ const Items = ({ from }) => {
         }
         axios.post(`${URLS.serverRoot}${URLS.deleteItem}`, data, { headers: { 'content-type': 'application/json' } })
             .then(r => {
-                console.log(r.data)
                 if (!r.data?.ok) return toast.error(`Error: ${r.data?.text}`, toastConfig);
                 setItems(items.filter(item => item._id !== deleteId));
                 setDeleteId('');
@@ -79,7 +83,7 @@ const Items = ({ from }) => {
     }
 
     return (
-        <div className='site-mw mx-auto d-flex flex-column align-items-center'>
+        <div className='site-mw mx-auto d-flex flex-column align-items-center my-5'>
 
             {!home && <Button as={Link} to={`/add-item`} className='mt-5 mb-3'> Add New Item </Button>}
 

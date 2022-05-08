@@ -34,7 +34,7 @@ const ResetPassword = () => {
                 {
                     showLoading ?
                         <>
-                            <p className='mt-5'><Loading></Loading></p>
+                            <div className='mt-5'><Loading></Loading></div>
                         </>
                         :
                         <>

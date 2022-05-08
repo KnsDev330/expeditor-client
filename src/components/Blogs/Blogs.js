@@ -25,22 +25,20 @@ const Blogs = () => {
         <div className='mx-auto site-mw my-5'>
             <div className="blogs d-flex gap-4 justify-content-center flex-wrap">
                 {
-                    blogs.map((blog, index) =>
-                        <div className={`blog p-3 ` + animations[index % 4]} key={blog.id}>
-                            <h4 className='d-flex'>
-                                <FontAwesomeIcon icon={faQuestionCircle} className='me-2' />
-                                {blog.question}
-                            </h4>
-                            {
-                                blog.ans.map(
-                                    a => <div className='d-flex' style={{ color: '#505050' }}>
-                                        <FontAwesomeIcon icon={faCircle} style={{ fontSize: '4px', margin: '9px 10px 0 0', display: 'inline' }} />
-                                        <p className='mb-2' dangerouslySetInnerHTML={{ __html: a }}></p>
-                                    </div>
-                                )
-                            }
-                        </div>
-                    )
+                    blogs.map((blog, index) => <div className={`blog p-3 ` + animations[index % 4]} key={blog._id}>
+                        <h4 className='d-flex'>
+                            <FontAwesomeIcon icon={faQuestionCircle} className='me-2' />
+                            {blog.question}
+                        </h4>
+                        {
+                            blog.ans.map(
+                                a => <div className='d-flex' style={{ color: '#505050' }} key={Math.ceil(Math.random() * 99999999)}>
+                                    <FontAwesomeIcon icon={faCircle} style={{ fontSize: '4px', margin: '9px 10px 0 0', display: 'inline' }} />
+                                    <p className='mb-2' dangerouslySetInnerHTML={{ __html: a }}></p>
+                                </div>
+                            )
+                        }
+                    </div>)
                 }
             </div>
         </div>

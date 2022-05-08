@@ -5,7 +5,6 @@ const URLS = {
     getItems: '/get-items',
     getItem: '/get-item',
     addItem: '/add-item',
-    myItems: '/my-items',
     deleteItem: '/delete-item',
     updateItem: '/update-item',
     getItemsCount: '/get-items-count'

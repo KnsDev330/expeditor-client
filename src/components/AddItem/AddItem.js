@@ -53,12 +53,11 @@ const AddItem = () => {
 
         // request to server
         axios.post(`${URLS.serverRoot}${URLS.addItem}`, data, { headers: { 'content-type': 'application/json' } })
-            .then(r => {
-                console.log(r);
-                if (!r.data?.ok) return toast.error(`Error: ${r.data?.text}`, toastConfig);
-                toast.success(`Item added successfully`, toastConfig);
+            .then(res => {
+                if (!res.data?.ok) return toast.error(`Error: ${res.data?.text}`, toastConfig);
+                toast.success(`Success: item added`, toastConfig);
             })
-            .catch(err => toast.error(`Error: ${err.message}`, toastConfig))
+            .catch(err => toast.error(`Error: ${err?.response?.data?.text}`, toastConfig))
             .finally(() => setAdding(false)); // reset adding to false
     }
     return (
