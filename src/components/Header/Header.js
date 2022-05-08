@@ -22,9 +22,9 @@ const Header = () => {
                     <Nav className="ms-auto nav-items" onClick={() => setExpanded(false)}>
                         <Nav.Link as={Link} to='/'> Home </Nav.Link>
                         <Nav.Link as={Link} to='/blogs'> Blogs </Nav.Link>
+                        <Nav.Link as={Link} to='/manage-inventories'> Inventories </Nav.Link>
                         {
                             user ? <>
-                                <Nav.Link as={Link} to='/manage-inventories'> Manage Items </Nav.Link>
                                 <Nav.Link as={Link} to='/add-item'> Add Item </Nav.Link>
                                 <Nav.Link as={Link} to='/my-items'> My Items </Nav.Link>
                                 <Button variant='outline-danger' className='mx-1' onClick={() => { signOut(auth); localStorage.removeItem("jwt"); }}> Logout </Button>

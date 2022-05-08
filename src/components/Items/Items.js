@@ -97,9 +97,11 @@ const Items = ({ from }) => {
                                 <ReadMore>{description}</ReadMore>
                             </Card.Text>
                             <div className="mt-auto d-flex justify-content-center gap-2">
-                                <Button variant="outline-danger" className='mt-auto w-25' onClick={() => { setShowModal(true); setDeleteId(_id); }}>
-                                    <FontAwesomeIcon icon={faTrashCan} />
-                                </Button>
+                                {
+                                    !home && <Button variant="outline-danger" className='mt-auto w-25' onClick={() => { setShowModal(true); setDeleteId(_id); }}>
+                                        <FontAwesomeIcon icon={faTrashCan} />
+                                    </Button>
+                                }
                                 <Button as={Link} to={`/inventory/${_id}`} variant="outline-success" className='mt-auto w-50'>Manage</Button>
                             </div>
                         </Card.Body>

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Services from '../Services/Services';
+import About from '../About/About';
 
 const Home = () => {
     return (
@@ -25,8 +26,9 @@ const Home = () => {
                     </div>
                 </header>
             </div>
-            <Services></Services>
             <Items from='home' ></Items>
+            <About></About>
+            <Services></Services>
         </div>
     );
 };
