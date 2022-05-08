@@ -1,0 +1,41 @@
+.services-header {
+    position: relative;
+}
+
+.services-header>strong {
+    color: #6cbbfa;
+}
+
+.services-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    width: 30px;
+    left: 50%;
+    transform: translate(-139px, 86%) rotate(45deg);
+    background: red;
+    transition: .3s;
+}
+
+.services-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 10px;
+    width: 250px;
+    left: 50%;
+    transform: translate(-50%, 15px);
+    background: blue;
+}
+
+.service {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.service:hover {
+    -webkit-box-shadow: 9px 10px 20px -7px rgb(0 0 0 / 25%);
+    -moz-box-shadow: 9px 10px 20px -7px rgba(0, 0, 0, 0.25);
+    box-shadow: 9px 10px 20px -7px rgb(0 0 0 / 25%);
+}

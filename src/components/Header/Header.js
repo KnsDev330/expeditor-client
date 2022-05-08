@@ -1,5 +1,5 @@
 import logo from '../../images/logo.png';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase.init';
@@ -10,13 +10,16 @@ import './Header.css';
 
 const Header = () => {
     const [user] = useAuthState(auth);
+
+    // close navbar on mobile after link click
+    const [expanded, setExpanded] = useState(false);
     return (
-        <Navbar bg="dark" variant="dark" expand="lg" className='navbar' sticky='top'>
+        <Navbar bg="dark" variant="dark" expand="lg" className='navbar' sticky='top' expanded={expanded}>
             <Container className='site-mw nav-container'>
                 <Navbar.Brand as={Link} to='/'> <img src={logo} alt="Art Gallery" className='logo' /> </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ms-auto nav-items">
+                    <Nav className="ms-auto nav-items" onClick={() => setExpanded(false)}>
                         <Nav.Link as={Link} to='/'> Home </Nav.Link>
                         <Nav.Link as={Link} to='/blogs'> Blogs </Nav.Link>
                         {

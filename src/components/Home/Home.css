@@ -1,0 +1,56 @@
+.wrapper {
+    height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.home-texts {
+    animation: fadeIn 0.5s ease-in;
+
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+
+.wrapper-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.title {
+    font-size: 4rem;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 5px black;
+    font-family: 'Tapestry', cursive;
+}
+
+.title-h3 {
+    text-shadow: 0 0 5px black;
+}
